@@ -32,24 +32,29 @@
 <body>
 <!--begin::Wrapper-->
 <div class="main-wrapper">
-    <!--begin::Sidebar-->
-    @include('layouts.partials.sidebar')
-    <!--end::Sidebar-->
-    <!--begin::Page-->
-    <div class="page-wrapper">
-        <!--begin::Navbar-->
-        @include('layouts.partials.navbar')
-        <!--end::Navbar-->
-        <!--begin::Content-->
-        <div id="content">
-            @yield('content')
+    @auth()
+        <!--begin::Sidebar-->
+        @include('layouts.partials.sidebar')
+        <!--end::Sidebar-->
+        <!--begin::Page-->
+        <div class="page-wrapper">
+            <!--begin::Navbar-->
+            @include('layouts.partials.navbar')
+            <!--end::Navbar-->
+            <!--begin::Content-->
+            <div id="content">
+                @yield('content')
+            </div>
+            <!--end::Content-->
+            <!--begin::Footer-->
+            @include('layouts.partials.footer')
+            <!--end::Footer-->
         </div>
-        <!--end::Content-->
-        <!--begin::Footer-->
-        @include('layouts.partials.footer')
-        <!--end::Footer-->
-    </div>
-    <!--end::Page-->
+        <!--end::Page-->
+    @endauth
+    @guest()
+        @yield('content')
+    @endguest
 </div>
 <!--end::Wrapper-->
 

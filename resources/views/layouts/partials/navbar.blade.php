@@ -128,10 +128,14 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('auth.logout') }}" class="nav-link"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i data-feather="log-out"></i>
                                     <span>Keluar</span>
                                 </a>
+                                <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                             <!--end::Menu item-->
                         </ul>
