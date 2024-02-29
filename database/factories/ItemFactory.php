@@ -12,14 +12,30 @@ class ItemFactory extends Factory
 
     public function definition(): array
     {
+        $names = [
+            'Drone Bag',
+            'Extra Batteries',
+            'Remote Controller',
+            'Propeller Guards',
+            'Gimbal Stabilizer',
+            'ND Filters',
+            'Charging Hub',
+            'Memory Card',
+            'Carrying Case',
+            'Landing Pad',
+            'Drone Repair Kit',
+            'FPV Goggles',
+            'Drone Backpack',
+            'Drone Landing Gear',
+            'Drone Antenna',
+        ];
+
         return [
-          'created_at' => Carbon::now(),
-          'updated_at' => Carbon::now(),
-          'code' => $this->faker->word(),
-          'name' => $this->faker->name(),
-          'description' => $this->faker->text(),
-          'quantity' => $this->faker->word(),
-          'minimum_stock' => $this->faker->word(),
+            'code' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
+            'name' => $this->faker->unique()->randomElement($names),
+            'description' => $this->faker->sentence(3),
+            'quantity' => $this->faker->numberBetween(1, 100),
+            'minimum_stock' => $this->faker->numberBetween(1, 20),
         ];
     }
 }
