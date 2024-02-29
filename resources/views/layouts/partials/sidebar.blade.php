@@ -22,8 +22,8 @@
             <li class="nav-item nav-category">Main</li>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <li class="nav-item active">
-                <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">
+                <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Beranda</span>
                 </a>
@@ -33,8 +33,8 @@
             <li class="nav-item nav-category">Master</li>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::segment(1) === 'items' ? 'active' : '' }}">
+                <a href="{{ route('items.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="codesandbox"></i>
                     <span class="link-title">Data Barang</span>
                 </a>

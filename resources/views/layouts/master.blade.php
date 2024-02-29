@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ Vite::asset('resources/vendors/core/core.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/fonts/feather-font/css/iconfont.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/vendors/toastr/toastr.min.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         div#content {
@@ -61,6 +62,18 @@
 <!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script src="{{ Vite::asset('resources/vendors/core/core.js') }}"></script>
 <script src="{{ Vite::asset('resources/vendors/feather-icons/feather.min.js') }}"></script>
+<script src="{{ Vite::asset('resources/vendors/toastr/toastr.min.js') }}"></script>
+@if (session('success'))
+    <script type="text/javascript">
+        toastr.success("{{ session('success') }}")
+    </script>
+@endif
+
+@if (session('error'))
+    <script type="text/javascript">
+        toastr.error("{{ session('error') }}");
+    </script>
+@endif
 <!--end::Global Javascript Bundle-->
 
 <!--begin::Custom Javascript(used for this page only)-->
