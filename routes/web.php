@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ShipmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +24,5 @@ Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::middleware('auth')->group(function () {
     Route::view('dashboard', 'dashboard.index')->name('dashboard.index');
     Route::resource('items', ItemController::class)->except('show');
+    Route::resource('shipments', ShipmentController::class);
 });

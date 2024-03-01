@@ -52,8 +52,8 @@
             </li>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::segment(1) === 'shipments' ? 'active' : '' }}">
+                <a href="{{ route('shipments.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="truck"></i>
                     <span class="link-title">Pengiriman Barang</span>
                 </a>
