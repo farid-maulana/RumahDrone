@@ -36,7 +36,7 @@
             <li class="nav-item {{ Request::segment(1) === 'items' ? 'active' : '' }}">
                 <a href="{{ route('items.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="codesandbox"></i>
-                    <span class="link-title">Data Barang</span>
+                    <span class="link-title">Inventaris</span>
                 </a>
             </li>
             <!--end:Menu item-->

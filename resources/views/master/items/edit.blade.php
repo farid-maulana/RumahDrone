@@ -5,13 +5,13 @@
         <!--begin::Page heading-->
         <nav class="page-breadcrumb">
             <!--begin::Title-->
-            <h4 class="mb-1">Data Barang</h4>
+            <h4 class="mb-1">Inventaris</h4>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('items.index') }}">Data Barang</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ubah Barang</li>
+                <li class="breadcrumb-item"><a href="{{ route('items.index') }}">Data Inventaris</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ubah Inventaris</li>
             </ol>
             <!--end::Breadcrumb-->
         </nav>

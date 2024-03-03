@@ -5,12 +5,12 @@
         <!--begin::Page heading-->
         <nav class="page-breadcrumb">
             <!--begin::Title-->
-            <h4 class="mb-1">Data Barang</h4>
+            <h4 class="mb-1">Inventaris</h4>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Barang</li>
+                <li class="breadcrumb-item active" aria-current="page">Data Inventaris</li>
             </ol>
             <!--end::Breadcrumb-->
         </nav>
@@ -27,7 +27,7 @@
                         <div class="d-flex justify-content-end mb-4">
                             <a href="{{ route('items.create') }}" class="btn btn-primary">
                                 <i class="link-icon" data-feather="plus"></i>
-                                Tambah Barang
+                                Tambah Inventaris
                             </a>
                         </div>
                         <!--end::Create new button-->
@@ -37,32 +37,24 @@
                                 <caption></caption>
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Nama Barang</th>
                                     <th>Kode Barang</th>
                                     <th>Deskripsi</th>
                                     <th>Stok</th>
                                     <th>Minimum Stok</th>
-                                    <th>Status</th>
                                     <th class="text-right">Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($items as $item)
+                                @forelse($items as $key => $item)
                                     <tr>
+                                        <td>{{ ++$key }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->code }}</td>
                                         <td>{{ $item->description }}</td>
                                         <td>{{ $item->quantity }}</td>
                                         <td>{{ $item->minimum_stock }}</td>
-                                        <td>
-                                            @if($item->quantity > $item->minimum_stock)
-                                                <div class="badge badge-pill badge-success">Tersedia</div>
-                                            @elseif($item->quantity == 0)
-                                                <div class="badge badge-pill badge-warning">Tidak Tersedia</div>
-                                            @else
-                                                <div class="badge badge-pill badge-danger">Stok Menipis</div>
-                                            @endif
-                                        </td>
                                         <td class="text-right">
                                             <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                                 <i data-feather="edit" class="text-white"
