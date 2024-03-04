@@ -9,6 +9,6 @@ class ShipmentSeeder extends Seeder
 {
     public function run(): void
     {
-        Shipment::factory(5)->create();
+        Shipment::factory(20)->create();
     }
 }

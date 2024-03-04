@@ -52,8 +52,8 @@
             </li>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item {{ Request::segment(1) === 'stocks' ? 'active' : '' }}">
+                <a href="{{ route('stock-management.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="calendar"></i>
                     <span class="link-title">Manajemen Stok</span>
                 </a>

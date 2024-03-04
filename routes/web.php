@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\StockManagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::view('dashboard', 'dashboard.index')->name('dashboard.index');
     Route::resource('items', ItemController::class)->except('show');
     Route::resource('shipments', ShipmentController::class);
+    Route::get('stocks', StockManagementController::class)->name('stock-management.index');
 });
