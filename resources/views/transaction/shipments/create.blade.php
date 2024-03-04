@@ -38,7 +38,7 @@
                                        id="order_number" name="order_number" autocomplete="off" placeholder="Nomor pesanan"
                                        value="{{ old('order_number') }}">
                                 @error('order_number')
-                                <label id="order_number-error" class="error mt-2 text-danger" for="order_number">
+                                <label id="order-number-error" class="error mt-2 text-danger" for="order_number">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -46,12 +46,12 @@
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="form-group">
-                                <label for="customer">Nama Customer <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control @error('customer') is-invalid @enderror"
-                                       id="customer" name="customer" autocomplete="off" placeholder="Nama customer"
-                                       value="{{ old('customer') }}">
-                                @error('customer')
-                                <label id="customer-error" class="error mt-2 text-danger" for="customer">
+                                <label for="entity_name">Nama Customer/Supplier <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control @error('entity_name') is-invalid @enderror"
+                                       id="entity_name" name="entity_name" autocomplete="off" placeholder="Nama customer/supplier"
+                                       value="{{ old('entity_name') }}">
+                                @error('entity_name')
+                                <label id="entity-name-error" class="error mt-2 text-danger" for="entity_name">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -59,12 +59,19 @@
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="form-group">
-                                <label for="address">Alamat Customer <span class="text-danger">*</span> </label>
-                                <textarea class="form-control @error('address') is-invalid @enderror"
-                                          id="address" name="address" autocomplete="off"
-                                          placeholder="Alamat customer" rows="3">{{ old('address') }}</textarea>
-                                @error('address')
-                                <label id="address-error" class="error mt-2 text-danger" for="address">
+                                <label for="type">
+                                    Jenis Pengiriman <span class="text-danger">*</span>
+                                </label>
+                                <select
+                                    class="js-example-basic-single w-100 @error('type') is-invalid @enderror"
+                                    data-width="100%" id="type" name="type">
+                                    <option value="" selected disabled>Pilih Jenis Pengiriman</option>
+                                    <option value="in">Barang Masuk</option>
+                                    <option value="out">Barang Keluar</option>
+                                </select>
+                                @error('type')
+                                <label id="type-error" class="error mt-2 text-danger"
+                                       for="type">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -72,12 +79,33 @@
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="form-group">
-                                <label for="order_date">Tanggal Pemesanan</label>
+                                <label for="order_date">Tanggal Pemesanan <span style="font-size: 12px; color: #6c757d;">(default: tanggal hari ini)</span></label>
                                 <input type="date" class="form-control @error('order_date') is-invalid @enderror"
                                        id="order_date" name="order_date" autocomplete="off"
                                        placeholder="Tanggal pemesanan" value="{{ old('order_date') }}">
                                 @error('order_date')
                                 <label id="order_date-error" class="error mt-2 text-danger" for="order_date">
+                                    {{ $message }}
+                                </label>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="form-group">
+                                <label for="status">
+                                    Status Pengiriman <span class="text-danger">*</span>
+                                </label>
+                                <select
+                                    class="js-example-basic-single w-100 @error('status') is-invalid @enderror"
+                                    data-width="100%" id="status" name="status">
+                                    <option value="" selected disabled>Pilih Status Pengiriman</option>
+                                    <option value="pending">Menunggu Pengiriman</option>
+                                    <option value="in transit">Dalam Perjalanan</option>
+                                    <option value="delivered">Terkirim</option>
+                                </select>
+                                @error('status')
+                                <label id="status-error" class="error mt-2 text-danger"
+                                       for="status">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -93,7 +121,7 @@
                                         <select
                                             class="js-example-basic-single w-100 @error('item_id') is-invalid @enderror"
                                             data-width="100%" id="item_id" name="item_id">
-                                            <option value="">Pilih barang</option>
+                                            <option value="" selected disabled>Pilih barang</option>
                                             @foreach($items as $item)
                                                 <option value="{{ $item->id }}"
                                                     {{ old('item_id') == $item->id ? 'selected' : '' }}>

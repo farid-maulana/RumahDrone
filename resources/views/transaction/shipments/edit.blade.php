@@ -49,12 +49,12 @@
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="form-group">
-                                <label for="customer">Nama Customer <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control @error('customer') is-invalid @enderror"
-                                       id="customer" name="customer" autocomplete="off" placeholder="Nama customer"
-                                       value="{{ $shipment->customer }}">
-                                @error('customer')
-                                <label id="customer-error" class="error mt-2 text-danger" for="customer">
+                                <label for="entity_name">Nama Customer/Supplier <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control @error('entity_name') is-invalid @enderror"
+                                       id="entity_name" name="entity_name" autocomplete="off" placeholder="Nama customer/supplier"
+                                       value="{{ $shipment->entity_name }}">
+                                @error('entity_name')
+                                <label id="entity-name-error" class="error mt-2 text-danger" for="entity_name">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -62,12 +62,19 @@
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="form-group">
-                                <label for="address">Alamat Customer <span class="text-danger">*</span> </label>
-                                <textarea class="form-control @error('address') is-invalid @enderror"
-                                          id="address" name="address" autocomplete="off"
-                                          placeholder="Alamat customer" rows="3">{{ $shipment->address }}</textarea>
-                                @error('address')
-                                <label id="address-error" class="error mt-2 text-danger" for="address">
+                                <label for="type">
+                                    Jenis Pengiriman <span class="text-danger">*</span>
+                                </label>
+                                <select
+                                    class="js-example-basic-single w-100 @error('type') is-invalid @enderror"
+                                    data-width="100%" id="type" name="type">
+                                    <option value="" selected disabled>Pilih Jenis Pengiriman</option>
+                                    <option value="in" {{ $shipment->type == 'in' ? 'selected' : '' }}>Barang Masuk</option>
+                                    <option value="out" {{ $shipment->type == 'out' ? 'selected' : '' }}>Barang Keluar</option>
+                                </select>
+                                @error('type')
+                                <label id="type-error" class="error mt-2 text-danger"
+                                       for="type">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -80,32 +87,6 @@
                                        id="order_date" name="order_date" value="{{ $shipment->order_date }}">
                                 @error('order_date')
                                 <label id="order_date-error" class="error mt-2 text-danger" for="order_date">
-                                    {{ $message }}
-                                </label>
-                                @enderror
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="form-group">
-                                <label for="shipment_date">Tanggal Pengiriman</label>
-                                <input type="date" class="form-control @error('shipment_date') is-invalid @enderror"
-                                       id="shipment_date" name="shipment_date"
-                                       value="{{ $shipment->shipment_date }}" {{ $shipment->status == 'pending' ? 'disabled' : '' }}>
-                                @error('shipment_date')
-                                <label id="shipment_date-error" class="error mt-2 text-danger" for="shipment_date">
-                                    {{ $message }}
-                                </label>
-                                @enderror
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="form-group">
-                                <label for="delivery_date">Tanggal Terkirim</label>
-                                <input type="date" class="form-control @error('delivery_date') is-invalid @enderror"
-                                       id="delivery_date" name="delivery_date"
-                                       value="{{ $shipment->delivery_date }}" {{ $shipment->status != 'delivered' ? 'disabled' : '' }}>
-                                @error('delivery_date')
-                                <label id="delivery_date-error" class="error mt-2 text-danger" for="delivery_date">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -130,9 +111,9 @@
                                         Terkirim
                                     </option>
                                 </select>
-                                @error('item_id')
-                                <label id="item_id-error" class="error mt-2 text-danger"
-                                       for="item_id">
+                                @error('status')
+                                <label id="status-error" class="error mt-2 text-danger"
+                                       for="status">
                                     {{ $message }}
                                 </label>
                                 @enderror
@@ -212,36 +193,4 @@
 
 @push('scripts')
     <script src="{{ Vite::asset('resources/vendors/select2/select2.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#status').on('change', fn => {
-                const status = fn.target.value;
-                const shipmentDate = $('#shipment_date');
-                const deliveryDate = $('#delivery_date');
-                // get date today
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = ('0' + (today.getMonth() + 1)).slice(-2);
-                const day = ('0' + today.getDate()).slice(-2);
-                const formattedDate = year + '-' + month + '-' + day;
-
-                if (status === 'pending') {
-                    shipmentDate.prop('disabled', true);
-                    shipmentDate.val(null);
-                    deliveryDate.prop('disabled', true);
-                    deliveryDate.val(null);
-                } else if (status === 'in transit') {
-                    shipmentDate.prop('disabled', false);
-                    shipmentDate.val(formattedDate)
-                    deliveryDate.prop('disabled', true);
-                    deliveryDate.val(null);
-                } else {
-                    shipmentDate.prop('disabled', false);
-                    shipmentDate.val(formattedDate)
-                    deliveryDate.prop('disabled', false);
-                    deliveryDate.val(formattedDate)
-                }
-            });
-        });
-    </script>
 @endpush

@@ -148,4 +148,9 @@ return [
 
     ],
 
+    'dbal' => [
+        'types' => [
+            'enum' => \Doctrine\DBAL\Types\StringType::class,
+        ],
+    ],
 ];

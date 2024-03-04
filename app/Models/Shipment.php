@@ -14,18 +14,12 @@ class Shipment extends Model
 
     protected $fillable = [
         'order_number',
-        'customer',
-        'address',
+        'entity_name',
+        'type',
         'order_date',
-        'shipment_date',
-        'delivery_date',
         'item_id',
         'quantity',
         'status',
-    ];
-
-    protected $casts = [
-        'date' => 'datetime',
     ];
 
     /**

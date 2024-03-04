@@ -18,7 +18,7 @@ class ShipmentController extends Controller
      */
     public function index(): View
     {
-        $shipments = Shipment::all();
+        $shipments = Shipment::orderByDesc('order_date')->get();
         return view('transaction.shipments.index', compact('shipments'));
     }
 
@@ -43,11 +43,10 @@ class ShipmentController extends Controller
 
     /**
      * @param Shipment $shipment
-     * @return View
      */
-    public function show(Shipment $shipment): View
+    public function show(Shipment $shipment)
     {
-        return view('transaction.shipments.show', compact('shipment'));
+        // Get items in the shipment
     }
 
     /**
@@ -67,15 +66,7 @@ class ShipmentController extends Controller
      */
     public function update(ShipmentRequest $request, Shipment $shipment): RedirectResponse
     {
-        $validated = $request->validated();
-        if ($validated['status'] == 'pending') {
-            $validated['shipment_date'] = null;
-            $validated['delivery_date'] = null;
-        } elseif ($validated['status'] == 'in transit') {
-            $validated['delivery_date'] = null;
-        }
-
-        $shipment->update($validated);
+        $shipment->update($request->validated());
 
         return to_route('shipments.index')->with('success', 'Data pengiriman berhasil diperbarui');
     }

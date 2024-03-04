@@ -20,20 +20,23 @@ class ShipmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'order_number' => [
-                'required',
-                Rule::unique('shipments')->ignore($this->route('shipment')->id),
-            ],
-            'order_date' => ['required', 'date'],
-            'customer' => ['required', 'string'],
-            'address' => ['required', 'string'],
+        $rules = [
+            'order_number' => ['required', Rule::unique('shipments')],
+            'entity_name' => ['required', 'string'],
+            'type' => ['required', 'string'],
             'item_id' => ['required', 'exists:items,id'],
             'quantity' => ['required', 'integer', 'min:1'],
-            'shipment_date' => ['nullable', 'date'],
-            'delivery_date' => ['nullable', 'date'],
-            'status' => ['string'],
+            'status' => ['required', 'string'],
         ];
+
+        if ($this->isMethod('put')) {
+            $rules['order_number'] = [
+                'required',
+                Rule::unique('shipments')->ignore($this->route('shipment')->id),
+            ];
+        }
+
+        return $rules;
     }
 
     /**
@@ -43,9 +46,9 @@ class ShipmentRequest extends FormRequest
     {
         return [
             'order_number.required' =>  __("validation.required", ["name" => "Nomor pesanan"]),
-            'order_date.required' => __("validation.required", ["name" => "Tanggal pemesanan"]),
-            'customer.required' => __("validation.required", ["name" => "Nama pelanggan"]),
-            'address.required' => __("validation.required", ["name" => "Alamat pelanggan"]),
+            'entity_name.required' => __("validation.required", ["name" => "Nama pelanggan/supplier"]),
+            'type.required' => __("validation.required", ["name" => "Jenis pengiriman"]),
+            'status.required' => __("validation.required", ["name" => "Status pengiriman"]),
             'order_number.unique' => __("validation.unique", ["name" => "Nomor pesanan"]),
             'item_id.required' => __("validation.required", ["name" => "Barang"]),
             'item_id.exists' => __("validation.exists", ["name" => "Barang"]),

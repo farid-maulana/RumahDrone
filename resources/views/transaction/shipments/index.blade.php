@@ -34,14 +34,20 @@
                         <!--begin::Table-->
                         <div class="table-responsive">
                             <table id="dataTableExample" class="table">
-                                <caption></caption>
+                                <caption class="mt-2">
+                                    Catatan: <br>
+                                    <i data-feather="arrow-down" class="text-success"
+                                       style="width: 16px; height: 16px;"></i> Barang Masuk
+                                    <i data-feather="arrow-up" class="text-danger"
+                                       style="width: 16px; height: 16px;"></i> Barang Keluar
+                                </caption>
                                 <thead>
                                 <tr>
                                     <th>No. Pesanan</th>
-                                    <th>Customer</th>
+                                    <th>Customer/Supplier</th>
                                     <th>Tgl Pemesanan</th>
-                                    <th>Tgl Pengiriman</th>
-                                    <th>Tgl Terkirim</th>
+                                    <th>Barang</th>
+                                    <th>Jumlah</th>
                                     <th>Status</th>
                                     <th class="text-right">Aksi</th>
                                 </tr>
@@ -50,10 +56,19 @@
                                 @forelse($shipments as $shipment)
                                     <tr>
                                         <td>{{ $shipment->order_number }}</td>
-                                        <td>{{ $shipment->customer }}</td>
+                                        <td>
+                                            @if($shipment->type === 'in')
+                                                <i data-feather="arrow-down" class="text-success"
+                                                   style="width: 16px; height: 16px;"></i>
+                                            @else
+                                                <i data-feather="arrow-up" class="text-danger"
+                                                   style="width: 16px; height: 16px;"></i>
+                                            @endif
+                                            {{ $shipment->entity_name }}
+                                        </td>
                                         <td>{{ \Carbon\Carbon::parse($shipment->order_date)->format(config('app.date_format')) }}</td>
-                                        <td>{{ $shipment->shipment_date != null ? \Carbon\Carbon::parse($shipment->shipment_date)->format(config('app.date_format')) : '-' }}</td>
-                                        <td>{{ $shipment->delivery_date != null ? \Carbon\Carbon::parse($shipment->delivery_date)->format(config('app.date_format')) : '-' }}</td>
+                                        <td>{{ $shipment->item->name }}</td>
+                                        <td>{{ $shipment->quantity }}</td>
                                         <td>
                                             @if($shipment->status == 'pending')
                                                 <div class="badge badge-pill badge-warning">Menunggu Pengiriman</div>
@@ -64,11 +79,6 @@
                                             @endif
                                         </td>
                                         <td class="text-right">
-                                            <a href="{{ route('shipments.show', $shipment->id) }}"
-                                               class="btn btn-info btn-sm">
-                                                <i data-feather="eye" class="text-white"
-                                                   style="width: 14px; height: 14px;"></i>
-                                            </a>
                                             <a href="{{ route('shipments.edit', $shipment->id) }}"
                                                class="btn btn-warning btn-sm">
                                                 <i data-feather="edit" class="text-white"
@@ -90,7 +100,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Tidak ada data</td>
+                                        <td colspan="7" class="text-center">Tidak ada data</td>
                                     </tr>
                                 @endforelse
                                 </tbody>

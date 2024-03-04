@@ -44,18 +44,18 @@
             <li class="nav-item nav-category">Transaksional</li>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="link-icon" data-feather="calendar"></i>
-                    <span class="link-title">Manajemen Stok</span>
-                </a>
-            </li>
-            <!--end:Menu item-->
-            <!--begin:Menu item-->
             <li class="nav-item {{ Request::segment(1) === 'shipments' ? 'active' : '' }}">
                 <a href="{{ route('shipments.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="truck"></i>
                     <span class="link-title">Pengiriman Barang</span>
+                </a>
+            </li>
+            <!--end:Menu item-->
+            <!--begin:Menu item-->
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Manajemen Stok</span>
                 </a>
             </li>
             <!--end:Menu item-->
