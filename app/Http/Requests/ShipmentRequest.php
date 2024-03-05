@@ -45,16 +45,16 @@ class ShipmentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'order_number.required' =>  __("validation.required", ["name" => "Nomor pesanan"]),
-            'entity_name.required' => __("validation.required", ["name" => "Nama pelanggan/supplier"]),
-            'type.required' => __("validation.required", ["name" => "Jenis pengiriman"]),
-            'status.required' => __("validation.required", ["name" => "Status pengiriman"]),
-            'order_number.unique' => __("validation.unique", ["name" => "Nomor pesanan"]),
-            'item_id.required' => __("validation.required", ["name" => "Barang"]),
-            'item_id.exists' => __("validation.exists", ["name" => "Barang"]),
-            'quantity.required' => __("validation.required", ["name" => "Jumlah"]),
-            'quantity.integer' => __("validation.integer", ["name" => "Jumlah"]),
-            'quantity.min' => __("validation.min.numeric", ["name" => "Jumlah", "min" => 1]),
+            'order_number.required' =>  "Nomor pemesanan wajib diisi",
+            'entity_name.required' => "Nama pelanggan/supplier wajib diisi",
+            'type.required' => "Jenis pengiriman wajib diisi",
+            'status.required' => "Status pengiriman wajib diisi",
+            'order_number.unique' => "Nomor pesanan sudah terdaftar",
+            'item_id.required' => "Barang wajib diisi",
+            'item_id.exists' => "Barang tidak ada di database",
+            'quantity.required' => "Jumlah wajib diisi",
+            'quantity.integer' => "Jumlah harus berupa angka",
+            'quantity.min' => "Jumlah minimal 1"
         ];
     }
 }

@@ -31,11 +31,11 @@ class ItemRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' =>  __("validation.required", ["name" => "Kode barang"]),
-            'name.required' => __("validation.required", ["name" => "Nama barang"]),
-            'minimum_stock.required' => __("validation.required", ["name" => "Minimum stok"]),
-            'quantity.numeric' => __("validation.numeric", ["name" => "Stok"]),
-            'code.unique' => __("validation.unique", ["name" => "Kode barang"]),
+            'code.required' =>  'Kode barang wajib diisi',
+            'name.required' => 'Nama barang wajib diisi',
+            'minimum_stock.required' => 'Minimum stok barang wajib diisi',
+            'quantity.numeric' => 'Stok harus berupa angka',
+            'code.unique' => 'Kode barang sudah terdaftar',
         ];
     }
 }
