@@ -37,7 +37,16 @@ class ShipmentController extends Controller
      */
     public function store(ShipmentRequest $request): RedirectResponse
     {
-        Shipment::create($request->validated());
+        $validated = $request->validated();
+        $item = Item::find($validated['item_id']);
+
+        if ($validated['type'] == 'in') {
+            $item->update(['quantity' => $item->quantity + $validated['quantity']]);
+        } else {
+            $item->update(['quantity' => $item->quantity - $validated['quantity']]);
+        }
+
+        Shipment::create($validated);
         return to_route('shipments.index')->with('success', 'Data pengiriman berhasil dicatat');
     }
 
@@ -66,8 +75,18 @@ class ShipmentController extends Controller
      */
     public function update(ShipmentRequest $request, Shipment $shipment): RedirectResponse
     {
-        $shipment->update($request->validated());
+        $validated = $request->validated();
+        $item = Item::find($validated['item_id']);
 
+        if ($validated['type'] != $shipment->type) {
+            if ($validated['type'] == 'in') {
+                $item->update(['quantity' => $item->quantity + ($validated['quantity'] * 2)]);
+            } else {
+                $item->update(['quantity' => $item->quantity - ($validated['quantity'] * 2)]);
+            }
+        }
+
+        $shipment->update($validated);
         return to_route('shipments.index')->with('success', 'Data pengiriman berhasil diperbarui');
     }
 
