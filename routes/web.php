@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ShipmentController;
@@ -24,7 +25,7 @@ Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware('auth')->group(function () {
-    Route::view('dashboard', 'dashboard.index')->name('dashboard.index');
+    Route::get('dashboard', DashboardController::class)->name('dashboard.index');
     Route::resource('items', ItemController::class)->except('show');
     Route::resource('shipments', ShipmentController::class);
     Route::get('stocks', StockManagementController::class)->name('stock-management.index');
