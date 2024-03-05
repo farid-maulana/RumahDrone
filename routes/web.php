@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\StockManagementController;
@@ -27,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('items', ItemController::class)->except('show');
     Route::resource('shipments', ShipmentController::class);
     Route::get('stocks', StockManagementController::class)->name('stock-management.index');
+    Route::get('inventory_export', [ExportController::class, 'index'])->name('inventory-export.index');
+    Route::get('inventory_export/download', [ExportController::class, 'download'])->name('inventory-export.download');
 });
