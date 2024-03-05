@@ -11,6 +11,15 @@ use Illuminate\Http\RedirectResponse;
 
 class ItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:inventory.index')->only('index');
+        $this->middleware('permission:inventory.create')->only('create', 'store');
+        $this->middleware('permission:inventory.edit')->only('edit', 'update');
+        $this->middleware('permission:inventory.destroy')->only('destroy');
+    }
+
     /**
      * @return Application|Factory|View
      */

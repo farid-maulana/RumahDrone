@@ -13,6 +13,15 @@ use Illuminate\Http\RedirectResponse;
 
 class ShipmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:shipment.index')->only('index');
+        $this->middleware('permission:shipment.create')->only('create', 'store');
+        $this->middleware('permission:shipment.edit')->only('edit', 'update');
+        $this->middleware('permission:shipment.destroy')->only('destroy');
+    }
+
     /**
      * @return View
      */

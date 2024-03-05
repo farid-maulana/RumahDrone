@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ExportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:report.index')->only('index');
+        $this->middleware('permission:report.download')->only('download');
+    }
+
     public function index()
     {
         $reports = Report::orderByDesc('created_at')->get();
